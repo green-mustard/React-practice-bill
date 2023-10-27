@@ -50,7 +50,7 @@ const DailyBill = ({ date, billList }) => {
       {/* 单日列表 */}
       <div className={classNames('billList')}>
         {billList.map(item => {
-          console.log(item)
+          // console.log(item)
           return (
             <div className="bill" key={item.id}>
               {/* 图标 */}
