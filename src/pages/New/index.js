@@ -5,12 +5,37 @@ import classNames from 'classnames'
 import { billListData } from '@/contants'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import dayjs from 'dayjs'
+import { addBillList } from '@/store/modules/billStore'
+import { useDispatch } from 'react-redux'
 
 const New = () => {
   const navigate = useNavigate()
+  // 控制日期选择器的显示与隐藏
   const [dateVisible, setDateVisible] = useState(false)
-  const [billType, setBillType] = useState('pay')
   // 控制收入与支出的状态
+  const [billType, setBillType] = useState('pay')
+  // 收集金额
+  const [money, setMoney] = useState(undefined)
+  const moneyChange = value => {
+    setMoney(value)
+  }
+  // 收集账单类型
+  const [useFor, setUseFor] = useState('')
+
+  const dispatch = useDispatch()
+  // 保存账单的回调
+  const saveBill = () => {
+    // 收集表单数据
+    const data = {
+      type: billType,
+      money: billType === 'pay' ? -money : +money,
+      date: dayjs().format('YYYY-MM-DD'),
+      useFor
+    }
+    dispatch(addBillList(data))
+    navigate(-1)
+  }
   return (
     <div className="keepAccounts">
       <NavBar className="nav" onBack={() => navigate(-1)}>
@@ -62,7 +87,16 @@ const New = () => {
               />
             </div>
             <div className="kaInput">
-              <Input className="input" placeholder="0.00" type="number" />
+              <Input
+                className="input"
+                placeholder="0.00"
+                value={money}
+                type="number"
+                onChange={moneyChange}
+                onFocus={() => {
+                  setMoney('')
+                }}
+              />
               <span className="iconYuan">¥</span>
             </div>
           </div>
@@ -77,7 +111,16 @@ const New = () => {
               <div className="list">
                 {item.list.map(item => {
                   return (
-                    <div className={classNames('item', '')} key={item.type}>
+                    <div
+                      className={classNames(
+                        'item',
+                        useFor === item.type && 'mask'
+                      )}
+                      key={item.type}
+                      onClick={() => {
+                        setUseFor(item.type)
+                      }}
+                    >
                       <div className="icon">
                         <Icon icon={item.type} />
                       </div>
@@ -92,7 +135,9 @@ const New = () => {
       </div>
 
       <div className="btns">
-        <Button className="btn save">保 存</Button>
+        <Button className="btn save" onClick={saveBill}>
+          保 存
+        </Button>
       </div>
     </div>
   )

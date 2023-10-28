@@ -138,6 +138,11 @@
             font-size: 25px;
           }
         }
+        .mask {
+          background-color: rgba($color: #000000, $alpha: 0.1);
+          border-radius: 25%;
+        }
+
         .item.selected {
           border: 0.5px solid var(--ka-border-color);
           border-radius: 5px;
