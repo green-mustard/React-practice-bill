@@ -104,6 +104,20 @@
       "date": "2023-10-28",
       "useFor": "food",
       "id": 22
+    },
+    {
+      "type": "pay",
+      "money": -200,
+      "date": "2023-10-27",
+      "useFor": "community",
+      "id": 23
+    },
+    {
+      "type": "income",
+      "money": 2,
+      "date": "2023-10-28",
+      "useFor": "cashgift",
+      "id": 24
     }
   ]
 }

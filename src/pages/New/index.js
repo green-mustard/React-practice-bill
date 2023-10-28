@@ -13,6 +13,10 @@ const New = () => {
   const navigate = useNavigate()
   // 控制日期选择器的显示与隐藏
   const [dateVisible, setDateVisible] = useState(false)
+  const [date, setDate] = useState(dayjs().format('YYYY-MM-DD'))
+  const dateConfirm = date => {
+    setDate(dayjs(date).format('YYYY-MM-DD'))
+  }
   // 控制收入与支出的状态
   const [billType, setBillType] = useState('pay')
   // 收集金额
@@ -30,8 +34,14 @@ const New = () => {
     const data = {
       type: billType,
       money: billType === 'pay' ? -money : +money,
-      date: dayjs().format('YYYY-MM-DD'),
+      date: date,
       useFor
+    }
+    for (let key in data) {
+      if (!data[key]) {
+        alert('请填写完整表单')
+        return
+      }
     }
     dispatch(addBillList(data))
     navigate(-1)
@@ -74,8 +84,9 @@ const New = () => {
                   setDateVisible(!dateVisible)
                 }}
               >
-                {'今天'}
+                {date}
               </span>
+              {/* 时间选择器 */}
               <DatePicker
                 className="kaDate"
                 title="记账日期"
@@ -84,6 +95,7 @@ const New = () => {
                 onClose={() => {
                   setDateVisible(!dateVisible)
                 }}
+                onConfirm={dateConfirm}
               />
             </div>
             <div className="kaInput">

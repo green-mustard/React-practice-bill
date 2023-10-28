@@ -130,7 +130,8 @@ const Month = () => {
             onConfirm={onConfirm}
           />
         </div>
-        {dayGroup.dayKeys.map(dayKey => (
+        {/* 使用 orderBy 方法对 dayGroup.dayKeys 数组进行排序，第一个参数是要排序的数组，第二个参数是排序的依据，这里使用 key => key 表示按照数组元素本身进行排序，第三个参数是排序方式，这里使用 ['desc'] 表示降序排列。在这里，key => key 是一个箭头函数，它的作用是返回数组元素本身，即按照日期进行排序。具体来说，dayGroup.dayKeys 数组中的每个元素都是一个字符串，表示一个日期，例如 "2022-11-01"，所以按照日期排序时，直接使用元素本身作为排序依据即可。 */}
+        {_.orderBy(dayGroup.dayKeys, key => key, ['desc']).map(dayKey => (
           <DailyBill
             key={dayKey}
             date={dayKey}

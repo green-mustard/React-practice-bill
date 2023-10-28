@@ -54,7 +54,7 @@
           display: flex;
           align-items: center;
           height: 28px;
-          padding: 5.5px 5px;
+          padding: 6px 5px;
           border-radius: 4px;
           // color: #4f825e;
           color: var(--ka-color);
@@ -66,6 +66,8 @@
           }
           .text {
             font-size: 16px;
+            margin-top: 2px;
+            padding-left: 6px;
           }
         }
 
@@ -139,7 +141,7 @@
           }
         }
         .mask {
-          background-color: rgba($color: #000000, $alpha: 0.1);
+          background-color: rgba($color: #7fda96, $alpha: 0.3);
           border-radius: 25%;
         }
 
